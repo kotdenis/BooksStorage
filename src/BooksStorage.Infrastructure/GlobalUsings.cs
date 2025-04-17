@@ -1,0 +1,12 @@
+﻿global using BooksStorage.Domain.Entities;
+global using Microsoft.EntityFrameworkCore;
+global using Microsoft.EntityFrameworkCore.Metadata.Builders;
+global using BooksStorage.Shared.Entities;
+global using BooksStorage.Infrastructure.Extensions;
+global using BooksStorage.Domain.Contracts.Repositories;
+global using BooksStorage.Infrastructure.DataConfiguration;
+global using Microsoft.Extensions.Logging;
+global using System.Linq.Expressions;
+global using System.Runtime.CompilerServices;
+global using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
+global using Microsoft.EntityFrameworkCore.Storage;

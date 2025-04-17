@@ -2,7 +2,7 @@
 {
     public class Publisher : BaseEntity
     {
-        public string Name { get; private set; } = string.Empty;
+        public string PublisherName { get; private set; } = string.Empty;
         public string? ContactInfo { get; private set; }
         public List<Book> Books { get; private set; } = new List<Book>();
 
@@ -11,9 +11,9 @@
         public Publisher(string name, string? contactInfo)
         {
             if (string.IsNullOrWhiteSpace(name))
-                throw new ArgumentException("Name cannot be empty.", nameof(name));
+                throw new ArgumentException("Имя издателя не должно быть пустым.", nameof(name));
 
-            Name = name;
+            PublisherName = name;
             ContactInfo = contactInfo;
         }
 
