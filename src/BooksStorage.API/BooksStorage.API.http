@@ -1,0 +1,6 @@
+@BooksStorage.API_HostAddress = http://localhost:5227
+
+GET {{BooksStorage.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
