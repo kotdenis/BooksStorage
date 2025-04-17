@@ -10,3 +10,8 @@ global using System.Linq.Expressions;
 global using System.Runtime.CompilerServices;
 global using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 global using Microsoft.EntityFrameworkCore.Storage;
+global using Microsoft.EntityFrameworkCore.Design;
+global using Microsoft.Extensions.Configuration;
+global using Microsoft.AspNetCore.Builder;
+global using Microsoft.Extensions.Hosting;
+global using Microsoft.Extensions.DependencyInjection;

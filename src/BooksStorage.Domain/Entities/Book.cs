@@ -12,7 +12,7 @@
 
         private Book() { } // For EF Core
 
-        public Book(string title, string author, decimal price, string? description)
+        public Book(string title, string author, decimal price, string? description, Guid publisherId)
         {
             if (string.IsNullOrWhiteSpace(title))
                 throw new ArgumentException("Должно быть наименование книги.", nameof(title));
@@ -23,6 +23,7 @@
             Title = title;
             Author = author;
             Price = price;
+            PublisherId = publisherId;
         }
 
         public void UpdatePrice(decimal newPrice)

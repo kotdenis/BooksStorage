@@ -1,0 +1,9 @@
+﻿global using BooksStorage.API.Configuration;
+global using BooksStorage.Infrastructure.DataConfiguration;
+global using Microsoft.EntityFrameworkCore;
+global using Npgsql;
+global using System.Reflection;
+global using System.Net;
+global using System.Text.Json;
+global using BooksStorage.API.Middleware;
+global using BooksStorage.Infrastructure.Extensions;

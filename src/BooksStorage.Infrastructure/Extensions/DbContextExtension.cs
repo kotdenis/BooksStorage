@@ -8,7 +8,7 @@
             {
                 if (entry.Entity is BaseEntity baseEntity)
                 {
-                    var now = DateTime.Now;
+                    var now = DateTime.UtcNow;
 
                     switch (entry.State)
                     {
