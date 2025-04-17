@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BooksStorage.Application", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BooksStorage.Domain", "src\BooksStorage.Domain\BooksStorage.Domain.csproj", "{2C258514-9799-4E55-A99D-0ABF4B3F5444}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BooksStorage.Shared", "src\BooksStorage.Shared\BooksStorage.Shared.csproj", "{60C78F51-CAA9-4D61-A9B6-A71F01722DCB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{2C258514-9799-4E55-A99D-0ABF4B3F5444}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2C258514-9799-4E55-A99D-0ABF4B3F5444}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2C258514-9799-4E55-A99D-0ABF4B3F5444}.Release|Any CPU.Build.0 = Release|Any CPU
+		{60C78F51-CAA9-4D61-A9B6-A71F01722DCB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{60C78F51-CAA9-4D61-A9B6-A71F01722DCB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{60C78F51-CAA9-4D61-A9B6-A71F01722DCB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{60C78F51-CAA9-4D61-A9B6-A71F01722DCB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
