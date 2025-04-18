@@ -13,7 +13,7 @@
                 await PopulatePublishersAsync(dbContext);
                 await PopulateBooksAsync(dbContext);
                 await PopulateSuppliersAsync(dbContext);
-                
+                await PopulateBookSuppliersAsync(dbContext);
             }
             catch (Exception ex)
             {
@@ -65,6 +65,23 @@
                     new Publisher("Publisher2", "")
                 };
                 dbContext.Set<Publisher>().AddRange(publishers);
+                await dbContext.SaveChangesAsync();
+            }
+        }
+
+        public static async Task PopulateBookSuppliersAsync(BooksStorageDbContext dbContext)
+        {
+            if (!dbContext.Set<BookSupplier>().Any())
+            {
+                var books = await dbContext.Set<Book>().ToListAsync();
+                var suppliers = await dbContext.Set<Supplier>().ToListAsync();
+                var bookSuppliers = new BookSupplier[]
+                {
+                    new BookSupplier(books[0].Id, suppliers[0].Id),
+                    new BookSupplier(books[1].Id, suppliers[1].Id),
+                    new BookSupplier(books[2].Id, suppliers[0].Id)
+                };
+                dbContext.Set<BookSupplier>().AddRange(bookSuppliers);
                 await dbContext.SaveChangesAsync();
             }
         }

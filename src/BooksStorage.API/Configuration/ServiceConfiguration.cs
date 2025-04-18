@@ -30,6 +30,7 @@
             services.AddScoped<IValidator<BookDto>, BookDtoValidator>();
             services.AddScoped<IValidator<UpdateBookDto>, UpdateBookDtoValidator>();
             services.AddScoped<IValidator<SupplierDto>, SupplierDtoValidator>();
+            services.AddScoped<IValidator<PublisherDto>, PublisherValidator>();
         }
     }
 }

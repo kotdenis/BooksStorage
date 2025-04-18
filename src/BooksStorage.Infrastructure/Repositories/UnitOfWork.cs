@@ -6,6 +6,7 @@
         private readonly Lazy<IBookRepository> _bookRepository;
         private readonly Lazy<IPublisherRepository> _publisherRepository;
         private readonly Lazy<ISupplierRepository> _supplierRepository;
+        private readonly Lazy<IBookSupplierRepository> _bookSupplierRepository;
         private readonly ILogger<UnitOfWork> _logger;
         private IDbContextTransaction? _currentTransaction;
 
@@ -15,12 +16,15 @@
             _bookRepository = new Lazy<IBookRepository>(() => new BookRepository(dbContext));
             _publisherRepository = new Lazy<IPublisherRepository>(() => new PublisherRepository(dbContext));
             _supplierRepository = new Lazy<ISupplierRepository>(() => new SupplierRepository(dbContext));
+            _bookSupplierRepository = new Lazy<IBookSupplierRepository>(() => new BookSupplierRepository(dbContext));
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
         public IBookRepository BookRepository => _bookRepository.Value;
         public IPublisherRepository PublisherRepository => _publisherRepository.Value;
         public ISupplierRepository SupplierRepository => _supplierRepository.Value;
+        public IBookSupplierRepository BookSupplierRepository => _bookSupplierRepository.Value;
+
 
         public async Task BeginTransactionAsync(System.Data.IsolationLevel isolationLevel, CancellationToken token = default)
         {

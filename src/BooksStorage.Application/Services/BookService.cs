@@ -69,6 +69,7 @@
                 .Include(b => b.Suppliers)
                 .FirstOrDefaultAsync(token)
                 ?? throw new ArgumentException($"Книга по {id} не найдена.");
+            
             return new BookDto
             {
                 Id = book.Id,
@@ -119,12 +120,31 @@
 
         public async Task DeleteBookAsync(Guid id, CancellationToken token)
         {
-            var book = await _unitOfWork.BookRepository.GetAllQueryable(isTracking: true, b => b.Id == id)
+            await _unitOfWork.BeginTransactionAsync(System.Data.IsolationLevel.ReadCommitted, token);
+            try
+            {
+                var book = await _unitOfWork.BookRepository.GetAllQueryable(isTracking: true, b => b.Id == id)
                 .Include(b => b.Publisher)
+                .Include(b => b.Suppliers)
                 .FirstOrDefaultAsync(token)
                 ?? throw new ArgumentException($"Книга по {id} не найдена.");
-            await _unitOfWork.BookRepository.TryDeleteAsync(book.Id, token);
-            await _unitOfWork.TrySaveChangesAsync(token);
+                await _unitOfWork.BookRepository.TryDeleteAsync(book.Id, token);
+                foreach (var supplier in book.Suppliers)
+                {
+                    var bookSupplier = await _unitOfWork.BookSupplierRepository.GetBookSupplierByIdsAsync(supplier.Id, book.Id, token);
+                    if (bookSupplier != null)
+                    {
+                        await _unitOfWork.BookSupplierRepository.DeleteAsync(book.Id, supplier.Id, token);
+                    }
+                }
+                await _unitOfWork.TrySaveChangesAsync(token);
+            }
+            catch (Exception ex)
+            {
+                await _unitOfWork.RollbackTransactionAsync(token);
+                _logger.LogError(ex, "Ошибка в удалении книги.");
+                throw;
+            }
         }
 
         public async Task CreateBookAsync(BookDto dto, CancellationToken token)
@@ -137,7 +157,14 @@
                 var publisher = await _unitOfWork.PublisherRepository.FindAsync(isTracking: true, token, b => b.Id == dto.PublisherId)
                     ?? throw new ArgumentException($"Издатель по {dto.PublisherId} не найден.");
                 book.AssignPublisher(publisher);
-                await _unitOfWork.BookRepository.TryCreateAsync(book, token);
+                foreach (var supplierName in dto.SupplierNames)
+                {
+                    var supplier = await _unitOfWork.SupplierRepository.FindAsync(isTracking: true, token, s => s.SupplierName == supplierName)
+                        ?? throw new ArgumentException($"Поставщик по {supplierName} не найден.");
+                    supplier.Books.Add(book);
+                    await _unitOfWork.BookRepository.TryCreateAsync(book, token);
+                    //await _unitOfWork.BookSupplierRepository.CreateAsync(book.Id, supplier.Id, token);
+                }
                 await _unitOfWork.TrySaveChangesAsync(token);
                 await _unitOfWork.CommitTransactionAsync(token);
             }

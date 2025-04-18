@@ -26,7 +26,7 @@
 
             builder.HasMany(b => b.Suppliers)
                    .WithMany(s => s.Books)
-                   .UsingEntity(j => j.ToTable("BookSupplier"));
+                   .UsingEntity<BookSupplier>();
         }
     }
 }

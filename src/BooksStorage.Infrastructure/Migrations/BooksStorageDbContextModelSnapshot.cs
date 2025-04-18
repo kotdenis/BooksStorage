@@ -22,21 +22,6 @@ namespace BooksStorage.Infrastructure.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("BookSupplier", b =>
-                {
-                    b.Property<Guid>("BooksId")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("SuppliersId")
-                        .HasColumnType("uuid");
-
-                    b.HasKey("BooksId", "SuppliersId");
-
-                    b.HasIndex("SuppliersId");
-
-                    b.ToTable("BookSupplier", (string)null);
-                });
-
             modelBuilder.Entity("BooksStorage.Domain.Entities.Book", b =>
                 {
                     b.Property<Guid>("Id")
@@ -73,6 +58,21 @@ namespace BooksStorage.Infrastructure.Migrations
                     b.HasIndex("PublisherId");
 
                     b.ToTable("Books", (string)null);
+                });
+
+            modelBuilder.Entity("BooksStorage.Domain.Entities.BookSupplier", b =>
+                {
+                    b.Property<Guid>("BookId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("SupplierId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("BookId", "SupplierId");
+
+                    b.HasIndex("SupplierId");
+
+                    b.ToTable("BookSuppliers");
                 });
 
             modelBuilder.Entity("BooksStorage.Domain.Entities.Publisher", b =>
@@ -127,21 +127,6 @@ namespace BooksStorage.Infrastructure.Migrations
                     b.ToTable("Suppliers", (string)null);
                 });
 
-            modelBuilder.Entity("BookSupplier", b =>
-                {
-                    b.HasOne("BooksStorage.Domain.Entities.Book", null)
-                        .WithMany()
-                        .HasForeignKey("BooksId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("BooksStorage.Domain.Entities.Supplier", null)
-                        .WithMany()
-                        .HasForeignKey("SuppliersId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("BooksStorage.Domain.Entities.Book", b =>
                 {
                     b.HasOne("BooksStorage.Domain.Entities.Publisher", "Publisher")
@@ -151,6 +136,25 @@ namespace BooksStorage.Infrastructure.Migrations
                         .IsRequired();
 
                     b.Navigation("Publisher");
+                });
+
+            modelBuilder.Entity("BooksStorage.Domain.Entities.BookSupplier", b =>
+                {
+                    b.HasOne("BooksStorage.Domain.Entities.Book", "Book")
+                        .WithMany()
+                        .HasForeignKey("BookId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("BooksStorage.Domain.Entities.Supplier", "Supplier")
+                        .WithMany()
+                        .HasForeignKey("SupplierId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Book");
+
+                    b.Navigation("Supplier");
                 });
 
             modelBuilder.Entity("BooksStorage.Domain.Entities.Publisher", b =>

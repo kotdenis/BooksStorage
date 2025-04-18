@@ -17,3 +17,4 @@ global using BooksStorage.Application.Validations.SupplierValidator;
 global using BooksStorage.Domain.Contracts.Repositories;
 global using BooksStorage.Infrastructure.Repositories;
 global using FluentValidation;
+global using BooksStorage.Application.Validations.PublisherValidators;

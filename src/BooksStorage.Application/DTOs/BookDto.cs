@@ -9,6 +9,6 @@
         public string? Description { get; set; }
         public string PublisherName { get; set; } = string.Empty;
         public Guid PublisherId { get; set; }
-        public List<string> SupplierNames { get; set; } = new List<string>();
+        public List<string> SupplierNames { get; set; } = new();
     }
 }

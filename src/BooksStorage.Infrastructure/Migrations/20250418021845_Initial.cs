@@ -66,24 +66,24 @@ namespace BooksStorage.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "BookSupplier",
+                name: "BookSuppliers",
                 columns: table => new
                 {
-                    BooksId = table.Column<Guid>(type: "uuid", nullable: false),
-                    SuppliersId = table.Column<Guid>(type: "uuid", nullable: false)
+                    BookId = table.Column<Guid>(type: "uuid", nullable: false),
+                    SupplierId = table.Column<Guid>(type: "uuid", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_BookSupplier", x => new { x.BooksId, x.SuppliersId });
+                    table.PrimaryKey("PK_BookSuppliers", x => new { x.BookId, x.SupplierId });
                     table.ForeignKey(
-                        name: "FK_BookSupplier_Books_BooksId",
-                        column: x => x.BooksId,
+                        name: "FK_BookSuppliers_Books_BookId",
+                        column: x => x.BookId,
                         principalTable: "Books",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_BookSupplier_Suppliers_SuppliersId",
-                        column: x => x.SuppliersId,
+                        name: "FK_BookSuppliers_Suppliers_SupplierId",
+                        column: x => x.SupplierId,
                         principalTable: "Suppliers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -95,16 +95,16 @@ namespace BooksStorage.Infrastructure.Migrations
                 column: "PublisherId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_BookSupplier_SuppliersId",
-                table: "BookSupplier",
-                column: "SuppliersId");
+                name: "IX_BookSuppliers_SupplierId",
+                table: "BookSuppliers",
+                column: "SupplierId");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "BookSupplier");
+                name: "BookSuppliers");
 
             migrationBuilder.DropTable(
                 name: "Books");
