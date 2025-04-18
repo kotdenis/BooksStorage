@@ -5,7 +5,7 @@
         public string Title { get; private set; } = string.Empty;
         public string Author { get; private set; } = string.Empty;
         public decimal Price { get; private set; }
-        public string? Description { get; set; }
+        public string? Description { get; private set; }
         public Guid PublisherId { get; private set; }
         public Publisher? Publisher { get; private set; }
         public List<Supplier> Suppliers { get; private set; } = new();
@@ -24,6 +24,17 @@
             Author = author;
             Price = price;
             PublisherId = publisherId;
+        }
+
+        public void AddDetails(string title, string author, string? description)
+        {
+            if (string.IsNullOrWhiteSpace(title))
+                throw new ArgumentException("Должно быть наименование книги.", nameof(title));
+            if (string.IsNullOrWhiteSpace(author))
+                throw new ArgumentException("Должно быть наименование автора.", nameof(author));
+            Title = title;
+            Author = author;
+            Description = description;
         }
 
         public void UpdatePrice(decimal newPrice)

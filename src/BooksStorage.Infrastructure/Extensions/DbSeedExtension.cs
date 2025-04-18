@@ -49,7 +49,8 @@
                     new Supplier("Supplier1", "Address1"),
                     new Supplier("Supplier2", "Address2")
                 };
-                dbContext.Set<Supplier>().AddRange(suppliers);
+                dbContext.Set<Supplier>()
+                    .AddRange(suppliers);
                 await dbContext.SaveChangesAsync();
             }
         }

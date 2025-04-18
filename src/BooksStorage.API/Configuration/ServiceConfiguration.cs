@@ -12,5 +12,24 @@
             services.AddDbContext<BooksStorageDbContext>(options =>
                 options.UseNpgsql(dataSource, npgsqlOptionsAction => npgsqlOptionsAction.MigrationsAssembly("BooksStorage.Infrastructure")));
         }
+
+        public static void AddServices(this IServiceCollection services)
+        {
+
+            services.AddScoped<IBookService, BookService>();
+            services.AddScoped<ISupplierService, SupplierService>();
+        }
+
+        public static void AddRepositories(this IServiceCollection services)
+        {
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+        }
+
+        public static void AddFluentValidation(this IServiceCollection services)
+        {
+            services.AddScoped<IValidator<BookDto>, BookDtoValidator>();
+            services.AddScoped<IValidator<UpdateBookDto>, UpdateBookDtoValidator>();
+            services.AddScoped<IValidator<SupplierDto>, SupplierDtoValidator>();
+        }
     }
 }

@@ -16,6 +16,14 @@
             Location = location;
         }
 
+        public void UpdateDetails(string supplierName, string? location)
+        {
+            if (string.IsNullOrWhiteSpace(supplierName))
+                throw new ArgumentException("Должно быть наименование поставщика.", nameof(supplierName));
+            SupplierName = supplierName;
+            Location = location;
+        }
+
         public void AddBook(Book book)
         {
             if (book == null)
