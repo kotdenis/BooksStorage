@@ -18,6 +18,7 @@
 
             services.AddScoped<IBookService, BookService>();
             services.AddScoped<ISupplierService, SupplierService>();
+            services.AddScoped<IPublisherService, PublisherService>();
         }
 
         public static void AddRepositories(this IServiceCollection services)

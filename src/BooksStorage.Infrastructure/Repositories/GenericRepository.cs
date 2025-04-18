@@ -1,6 +1,4 @@
-﻿using BooksStorage.Domain.Helpers;
-
-namespace BooksStorage.Infrastructure.Repositories
+﻿namespace BooksStorage.Infrastructure.Repositories
 {
     public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : BaseEntity
     {
